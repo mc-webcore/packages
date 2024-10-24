@@ -1,0 +1,683 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WebMarkupMin.NUglify</name>
+    </assembly>
+    <members>
+        <member name="T:WebMarkupMin.NUglify.BlockStart">
+            <summary>
+            Describes how to output the opening curly-brace for blocks when the OutputMode
+            is set to MultipleLines
+            </summary>
+        </member>
+        <member name="F:WebMarkupMin.NUglify.BlockStart.NewLine">
+            <summary>
+            Output the opening curly-brace block-start character on its own new line.
+            Example:
+            <code>if (condition)
+            {
+            	...
+            }</code>
+            </summary>
+        </member>
+        <member name="F:WebMarkupMin.NUglify.BlockStart.SameLine">
+            <summary>
+            Output the opening curly-brace block-start character at the end of the previous line.
+            Example:
+            <code>if (condition) {
+            	...
+            }</code>
+            </summary>
+        </member>
+        <member name="F:WebMarkupMin.NUglify.BlockStart.UseSource">
+            <summary>
+            Output the opening curly-brace block-start character on the same line or a new line
+            depending on how it was specified in the sources
+            </summary>
+        </member>
+        <member name="F:WebMarkupMin.NUglify.CssColor.Strict">
+            <summary>
+            Convert strict names to hex values if shorter; hex values to strict names if shorter. Leave all other
+            color names or hex values as-specified.
+            </summary>
+        </member>
+        <member name="F:WebMarkupMin.NUglify.CssColor.Hex">
+            <summary>
+            Always use hex values; do not convert any hex values to color names
+            </summary>
+        </member>
+        <member name="F:WebMarkupMin.NUglify.CssColor.Major">
+            <summary>
+            Convert known hex values to major-browser color names if shorter; and known major-browser color
+            names to hex if shorter
+            </summary>
+        </member>
+        <member name="F:WebMarkupMin.NUglify.CssColor.NoSwap">
+            <summary>
+            Don't swap names for hex or hex for names, whether or not one is shorter
+            </summary>
+        </member>
+        <member name="F:WebMarkupMin.NUglify.CssComment.Important">
+            <summary>
+            Remove all comments except those marked as important (<code>//!</code> or <code>/*!</code>)
+            </summary>
+        </member>
+        <member name="F:WebMarkupMin.NUglify.CssComment.None">
+            <summary>
+            Remove all source comments from the output
+            </summary>
+        </member>
+        <member name="F:WebMarkupMin.NUglify.CssComment.All">
+            <summary>
+            Keep all source comments in the output
+            </summary>
+        </member>
+        <member name="F:WebMarkupMin.NUglify.CssComment.Hacks">
+            <summary>
+            Remove all source comments except those for approved comment-based hacks
+            </summary>
+        </member>
+        <member name="F:WebMarkupMin.NUglify.EvalTreatment.Ignore">
+            <summary>
+            Ignore all eval statements. This assumes that code that is eval'd will not attempt
+            to access any local variables or functions, as those variables and function may be renamed.
+            </summary>
+        </member>
+        <member name="F:WebMarkupMin.NUglify.EvalTreatment.MakeImmediateSafe">
+            <summary>
+            Assume any code that is eval'd will attempt to access local variables and functions declared
+            in the same scope as the eval statement. This will turn off local variable and function renaming
+            in any scope that contains an eval statement.
+            </summary>
+        </member>
+        <member name="F:WebMarkupMin.NUglify.EvalTreatment.MakeAllSafe">
+            <summary>
+            Assume that any local variable or function in any accessible scope chain may be referenced by
+            code that is eval'd. This will turn off local variable and function renaming for all scopes that
+            contain an eval statement, and all their parent scopes up the chain to the global scope.
+            </summary>
+        </member>
+        <member name="T:WebMarkupMin.NUglify.IndentType">
+            <summary>
+            Indent types
+            </summary>
+        </member>
+        <member name="F:WebMarkupMin.NUglify.LocalRenaming.KeepAll">
+            <summary>
+            Keep all names; don't rename anything
+            </summary>
+        </member>
+        <member name="F:WebMarkupMin.NUglify.LocalRenaming.KeepLocalizationVars">
+            <summary>
+            Rename all local variables and functions that do not begin with "L_"
+            </summary>
+        </member>
+        <member name="F:WebMarkupMin.NUglify.LocalRenaming.CrunchAll">
+            <summary>
+            Rename all local variables and functions
+            </summary>
+        </member>
+        <member name="T:WebMarkupMin.NUglify.NUglifyCommonMinificationSettingsBase">
+            <summary>
+            Common settings of the NUglify Minifier
+            </summary>
+        </member>
+        <member name="P:WebMarkupMin.NUglify.NUglifyCommonMinificationSettingsBase.BlocksStartOnSameLine">
+            <summary>
+            Gets or sets a value indicating whether the opening curly brace for blocks is
+            on its own line (<code>NewLine</code>) or on the same line as
+            the preceding code (<code>SameLine</code>)
+            or taking a hint from the source code position (<code>UseSource</code>).
+            Only relevant when OutputMode is set to <code>MultipleLines</code>.
+            </summary>
+        </member>
+        <member name="P:WebMarkupMin.NUglify.NUglifyCommonMinificationSettingsBase.IgnoreAllErrors">
+            <summary>
+            Gets or sets a flag for whether to ignore all errors found in the input code
+            </summary>
+        </member>
+        <member name="P:WebMarkupMin.NUglify.NUglifyCommonMinificationSettingsBase.IgnoreErrorList">
+            <summary>
+            Gets or sets a string representation of the list of
+            debug lookups (comma-separated)
+            </summary>
+        </member>
+        <member name="P:WebMarkupMin.NUglify.NUglifyCommonMinificationSettingsBase.IndentSize">
+            <summary>
+            Gets or sets a number of spaces or tabs per indent level when in
+            <code>MultipleLines</code> output mode
+            </summary>
+        </member>
+        <member name="P:WebMarkupMin.NUglify.NUglifyCommonMinificationSettingsBase.IndentType">
+            <summary>
+            Gets or sets a indent type when in <code>MultipleLines</code> output mode
+            </summary>
+        </member>
+        <member name="P:WebMarkupMin.NUglify.NUglifyCommonMinificationSettingsBase.LineBreakThreshold">
+            <summary>
+            Gets or sets a column position at which the line
+            will be broken at the next available opportunity
+            </summary>
+        </member>
+        <member name="P:WebMarkupMin.NUglify.NUglifyCommonMinificationSettingsBase.OutputMode">
+            <summary>
+            Gets or sets a output mode:
+            <code>SingleLine</code> - output all code on a single line;
+            <code>MultipleLines</code> - break the output into multiple lines to be more human-readable
+            </summary>
+        </member>
+        <member name="P:WebMarkupMin.NUglify.NUglifyCommonMinificationSettingsBase.PreprocessorDefineList">
+            <summary>
+            Gets or sets a string representation of the list
+            of names defined for the preprocessor (comma-separated)
+            </summary>
+        </member>
+        <member name="P:WebMarkupMin.NUglify.NUglifyCommonMinificationSettingsBase.TermSemicolons">
+            <summary>
+            Gets or sets a flag for whether to add a semicolon
+            at the end of the parsed code
+            </summary>
+        </member>
+        <member name="P:WebMarkupMin.NUglify.NUglifyCommonMinificationSettingsBase.WarningLevel">
+            <summary>
+            Gets or sets a warning level threshold for reporting errors
+            	0 - syntax error;
+            	1 - the programmer probably did not intend to do this;
+            	2 - this can lead to problems in the future;
+            	3 - this can lead to performance problems;
+            	4 - this is just not right.
+            </summary>
+        </member>
+        <member name="M:WebMarkupMin.NUglify.NUglifyCommonMinificationSettingsBase.#ctor">
+            <summary>
+            Constructs an instance of common settings of the NUglify Minifier
+            </summary>
+        </member>
+        <member name="T:WebMarkupMin.NUglify.NUglifyCssMinificationSettings">
+            <summary>
+            NUglify CSS Minifier settings
+            </summary>
+        </member>
+        <member name="P:WebMarkupMin.NUglify.NUglifyCssMinificationSettings.AbbreviateHexColor">
+            <summary>
+            Gets or sets a value indicating whether to abbreviate hex colors to #rgb(a) format
+            </summary>
+        </member>
+        <member name="P:WebMarkupMin.NUglify.NUglifyCssMinificationSettings.ColorNames">
+            <summary>
+            Gets or sets a <see cref="T:WebMarkupMin.NUglify.CssColor"/> setting
+            </summary>
+        </member>
+        <member name="P:WebMarkupMin.NUglify.NUglifyCssMinificationSettings.CommentMode">
+            <summary>
+            Gets or sets a <see cref="T:WebMarkupMin.NUglify.CssComment"/> setting
+            </summary>
+        </member>
+        <member name="P:WebMarkupMin.NUglify.NUglifyCssMinificationSettings.DecodeEscapes">
+            <summary>
+            Gets or sets a value indicating whether unicode escape strings (e.g. <code>\ff0e</code>)
+            would be replaced by it's actual character or not
+            </summary>
+        </member>
+        <member name="P:WebMarkupMin.NUglify.NUglifyCssMinificationSettings.MinifyExpressions">
+            <summary>
+            Gets or sets a value indicating whether to minify the
+            JavaScript within expression functions
+            </summary>
+        </member>
+        <member name="P:WebMarkupMin.NUglify.NUglifyCssMinificationSettings.RemoveEmptyBlocks">
+            <summary>
+            Gets or sets a value indicating whether empty blocks removes
+            the corresponding rule or directive
+            </summary>
+        </member>
+        <member name="M:WebMarkupMin.NUglify.NUglifyCssMinificationSettings.#ctor">
+            <summary>
+            Constructs an instance of the NUglify CSS Minifier settings
+            </summary>
+        </member>
+        <member name="T:WebMarkupMin.NUglify.NUglifyCssMinifier">
+            <summary>
+            Minifier, which produces minifiction of CSS-code by using the NUglify CSS Minifier
+            </summary>
+        </member>
+        <member name="F:WebMarkupMin.NUglify.NUglifyCssMinifier._settings">
+            <summary>
+            NUglify CSS Minifier settings
+            </summary>
+        </member>
+        <member name="F:WebMarkupMin.NUglify.NUglifyCssMinifier._errorReporter">
+            <summary>
+            Error reporter
+            </summary>
+        </member>
+        <member name="F:WebMarkupMin.NUglify.NUglifyCssMinifier._originalEmbeddedCssParser">
+            <summary>
+            Original CSS parser for embedded code
+            </summary>
+        </member>
+        <member name="F:WebMarkupMin.NUglify.NUglifyCssMinifier._originalInlineCssParser">
+            <summary>
+            Original CSS parser for inline code
+            </summary>
+        </member>
+        <member name="F:WebMarkupMin.NUglify.NUglifyCssMinifier._minificationSynchronizer">
+            <summary>
+            Synchronizer of minification
+            </summary>
+        </member>
+        <member name="M:WebMarkupMin.NUglify.NUglifyCssMinifier.#ctor">
+            <summary>
+            Constructs an instance of the NUglify CSS Minifier
+            </summary>
+        </member>
+        <member name="M:WebMarkupMin.NUglify.NUglifyCssMinifier.#ctor(WebMarkupMin.NUglify.NUglifyCssMinificationSettings)">
+            <summary>
+            Constructs an instance of the NUglify CSS Minifier
+            </summary>
+            <param name="settings">NUglify CSS Minifier settings</param>
+        </member>
+        <member name="M:WebMarkupMin.NUglify.NUglifyCssMinifier.CreateOriginalCssParserInstance(WebMarkupMin.NUglify.NUglifyCssMinificationSettings,System.Boolean)">
+            <summary>
+            Creates a instance of original CSS parser
+            </summary>
+            <param name="settings">CSS minifier settings</param>
+            <param name="isInlineCode">Flag for whether to create a CSS parser for inline code</param>
+            <returns>Instance of original CSS parser</returns>
+        </member>
+        <member name="P:WebMarkupMin.NUglify.NUglifyCssMinifier.IsInlineCodeMinificationSupported">
+            <summary>
+            Gets a value indicating the minifier supports inline code minification
+            </summary>
+        </member>
+        <member name="M:WebMarkupMin.NUglify.NUglifyCssMinifier.Minify(System.String,System.Boolean)">
+            <summary>
+            Produces a code minifiction of CSS content by using the NUglify CSS Minifier
+            </summary>
+            <param name="content">CSS content</param>
+            <param name="isInlineCode">Flag whether the content is inline code</param>
+            <returns>Minification result</returns>
+        </member>
+        <member name="M:WebMarkupMin.NUglify.NUglifyCssMinifier.Minify(System.String,System.Boolean,System.Text.Encoding)">
+            <summary>
+            Produces a code minifiction of CSS content by using the NUglify CSS Minifier
+            </summary>
+            <param name="content">CSS content</param>
+            <param name="isInlineCode">Flag whether the content is inline code</param>
+            <param name="encoding">Text encoding</param>
+            <returns>Minification result</returns>
+        </member>
+        <member name="T:WebMarkupMin.NUglify.NUglifyCssMinifierFactory">
+            <summary>
+            NUglify CSS Minifier factory
+            </summary>
+        </member>
+        <member name="P:WebMarkupMin.NUglify.NUglifyCssMinifierFactory.MinificationSettings">
+            <summary>
+            Gets or sets a minification settings used to configure the NUglify CSS Minifier
+            </summary>
+        </member>
+        <member name="M:WebMarkupMin.NUglify.NUglifyCssMinifierFactory.#ctor">
+            <summary>
+            Constructs an instance of the NUglify CSS Minifier factory
+            </summary>
+        </member>
+        <member name="M:WebMarkupMin.NUglify.NUglifyCssMinifierFactory.#ctor(WebMarkupMin.NUglify.NUglifyCssMinificationSettings)">
+            <summary>
+            Constructs an instance of the NUglify CSS Minifier factory
+            </summary>
+            <param name="settings">Minification settings used to configure the NUglify CSS Minifier</param>
+        </member>
+        <member name="M:WebMarkupMin.NUglify.NUglifyCssMinifierFactory.CreateMinifier">
+            <summary>
+            Creates a instance of the NUglify CSS Minifier
+            </summary>
+            <returns>Instance of the NUglify CSS Minifier</returns>
+        </member>
+        <member name="T:WebMarkupMin.NUglify.NUglifyJsMinificationSettings">
+            <summary>
+            NUglify JS Minifier settings
+            </summary>
+        </member>
+        <member name="P:WebMarkupMin.NUglify.NUglifyJsMinificationSettings.AlwaysEscapeNonAscii">
+            <summary>
+            Gets or sets a flag indicating whether to always escape non-ASCII characters as <code>\uXXXX</code>
+            or to let the output encoding object handle that via the <code>JsEncoderFallback</code> object for the
+            specified output encoding format
+            </summary>
+        </member>
+        <member name="P:WebMarkupMin.NUglify.NUglifyJsMinificationSettings.AmdSupport">
+            <summary>
+            Gets or sets a flag indicating whether to perform extra tasks on AMD-style defines
+            </summary>
+        </member>
+        <member name="P:WebMarkupMin.NUglify.NUglifyJsMinificationSettings.CollapseToLiteral">
+            <summary>
+            Gets or sets a flag for whether to collapse <code>new Array()</code>
+            to <code>[]</code> and <code>new Object()</code> to <code>{}</code>
+            (true) or leave as-is (false)
+            </summary>
+        </member>
+        <member name="P:WebMarkupMin.NUglify.NUglifyJsMinificationSettings.ConstStatementsMozilla">
+            <summary>
+            Gets or sets a boolean value indicating whether to use old-style
+            const statements (just var-statements that define unchangeable fields)
+            or new EcmaScript 6 lexical declarations
+            </summary>
+        </member>
+        <member name="P:WebMarkupMin.NUglify.NUglifyJsMinificationSettings.DebugLookupList">
+            <summary>
+            Gets or sets a string representation of the list of debug
+            lookups (comma-separated)
+            </summary>
+        </member>
+        <member name="P:WebMarkupMin.NUglify.NUglifyJsMinificationSettings.ErrorIfNotInlineSafe">
+            <summary>
+            Gets or sets a flag for whether to throw an error
+            if a source string is not safe for inclusion in an
+            HTML inline script block
+            </summary>
+        </member>
+        <member name="P:WebMarkupMin.NUglify.NUglifyJsMinificationSettings.EvalLiteralExpressions">
+            <summary>
+            Gets or sets a flag for whether to evaluate expressions containing
+            only literal bool, string, numeric, or null values (true).
+            Leave literal expressions alone and do not evaluate them (false).
+            </summary>
+        </member>
+        <member name="P:WebMarkupMin.NUglify.NUglifyJsMinificationSettings.EvalTreatment">
+            <summary>
+            EvalTreatment setting
+            </summary>
+        </member>
+        <member name="P:WebMarkupMin.NUglify.NUglifyJsMinificationSettings.IgnoreConditionalCompilation">
+            <summary>
+            Gets or sets a flag for whether or not to ignore conditional-compilation
+            comment syntax (true) or to try to retain the comments in the output (false)
+            </summary>
+        </member>
+        <member name="P:WebMarkupMin.NUglify.NUglifyJsMinificationSettings.IgnorePreprocessorDefines">
+            <summary>
+            Gets or sets a boolean value indicating whether or not to ignore preprocessor
+            defines comment syntax (true) or to evaluate them (false)
+            </summary>
+        </member>
+        <member name="P:WebMarkupMin.NUglify.NUglifyJsMinificationSettings.InlineSafeStrings">
+            <summary>
+            Gets or sets a flag for whether to break up string literals containing
+            <code>&lt;/script&gt;</code> so inline code won't break (true).
+            Leave string literals as-is (false).
+            </summary>
+        </member>
+        <member name="P:WebMarkupMin.NUglify.NUglifyJsMinificationSettings.KnownGlobalNamesList">
+            <summary>
+            Gets or sets the known global names list as a single comma-separated string
+            </summary>
+        </member>
+        <member name="P:WebMarkupMin.NUglify.NUglifyJsMinificationSettings.LocalRenaming">
+            <summary>
+            Gets or sets a value indicating whether to how to rename local variables and functions:
+            <code>KeepAll</code> - do not rename local variables and functions;
+            <code>CrunchAll</code> - rename all local variables and functions to shorter names;
+            <code>KeepLocalizationVars</code> - rename all local variables and functions that do NOT start with L_
+            </summary>
+        </member>
+        <member name="P:WebMarkupMin.NUglify.NUglifyJsMinificationSettings.MacSafariQuirks">
+            <summary>
+            Gets or sets a value indicating whether to add characters to the output
+            to make sure Mac Safari bugs are not generated (true).
+            Disregard potential Mac Safari bugs (false).
+            </summary>
+        </member>
+        <member name="P:WebMarkupMin.NUglify.NUglifyJsMinificationSettings.ManualRenamesProperties">
+            <summary>
+            Gets or sets a boolean value indicating whether object property
+            names with the specified "from" names will get renamed to
+            the corresponding "to" names (true) when using
+            the manual-rename feature, or left alone (false)
+            </summary>
+        </member>
+        <member name="P:WebMarkupMin.NUglify.NUglifyJsMinificationSettings.NoAutoRenameList">
+            <summary>
+            Get or sets the no-automatic-renaming list as a single string of
+            comma-separated identifiers
+            </summary>
+        </member>
+        <member name="P:WebMarkupMin.NUglify.NUglifyJsMinificationSettings.PreserveFunctionNames">
+            <summary>
+            Gets or sets a value indicating whether all function names
+            must be preserved and remain as-named
+            </summary>
+        </member>
+        <member name="P:WebMarkupMin.NUglify.NUglifyJsMinificationSettings.PreserveImportantComments">
+            <summary>
+            Gets or sets a value indicating whether to preserve important
+            comments in the output
+            </summary>
+        </member>
+        <member name="P:WebMarkupMin.NUglify.NUglifyJsMinificationSettings.QuoteObjectLiteralProperties">
+            <summary>
+            Gets or sets a value indicating whether to always quote object literal property names
+            </summary>
+        </member>
+        <member name="P:WebMarkupMin.NUglify.NUglifyJsMinificationSettings.RemoveFunctionExpressionNames">
+            <summary>
+            Gets or sets a value indicating whether or not to remove
+            unreferenced function expression names
+            </summary>
+        </member>
+        <member name="P:WebMarkupMin.NUglify.NUglifyJsMinificationSettings.RemoveUnneededCode">
+            <summary>
+            Remove unneeded code, like uncalled local functions (true).
+            Keep all code (false).
+            </summary>
+        </member>
+        <member name="P:WebMarkupMin.NUglify.NUglifyJsMinificationSettings.RenamePairs">
+            <summary>
+            Gets or sets a string representation of all the indentifier
+            replacements as a comma-separated list of "source=target" identifiers
+            </summary>
+        </member>
+        <member name="P:WebMarkupMin.NUglify.NUglifyJsMinificationSettings.ReorderScopeDeclarations">
+            <summary>
+            Gets or sets a value indicating whether or not to reorder function and variable
+            declarations within scopes (true), or to leave the order as specified in
+            the original source
+            </summary>
+        </member>
+        <member name="P:WebMarkupMin.NUglify.NUglifyJsMinificationSettings.StrictMode">
+            <summary>
+            Gets or sets a boolean value indicating whether or not to force
+            the input code into strict mode (can still specify strict-mode in
+            the sources if this value is false)
+            </summary>
+        </member>
+        <member name="P:WebMarkupMin.NUglify.NUglifyJsMinificationSettings.StripDebugStatements">
+            <summary>
+            Strip debug statements (true).
+            Leave debug statements (false).
+            </summary>
+        </member>
+        <member name="M:WebMarkupMin.NUglify.NUglifyJsMinificationSettings.#ctor">
+            <summary>
+            Constructs an instance of the NUglify JS Minifier settings
+            </summary>
+        </member>
+        <member name="T:WebMarkupMin.NUglify.NUglifyJsMinifier">
+            <summary>
+            Minifier, which produces minifiction of JS-code by using the NUglify JS Minifier
+            </summary>
+        </member>
+        <member name="F:WebMarkupMin.NUglify.NUglifyJsMinifier._settings">
+            <summary>
+            NUglify JS Minifier settings
+            </summary>
+        </member>
+        <member name="F:WebMarkupMin.NUglify.NUglifyJsMinifier._errorReporter">
+            <summary>
+            Error reporter
+            </summary>
+        </member>
+        <member name="F:WebMarkupMin.NUglify.NUglifyJsMinifier._originalEmbeddedJsParser">
+            <summary>
+            Original JS parser for embedded code
+            </summary>
+        </member>
+        <member name="F:WebMarkupMin.NUglify.NUglifyJsMinifier._originalInlineJsParser">
+            <summary>
+            Original JS parser for inline code
+            </summary>
+        </member>
+        <member name="F:WebMarkupMin.NUglify.NUglifyJsMinifier._minificationSynchronizer">
+            <summary>
+            Synchronizer of minification
+            </summary>
+        </member>
+        <member name="M:WebMarkupMin.NUglify.NUglifyJsMinifier.#ctor">
+            <summary>
+            Constructs an instance of the NUglify JS Minifier
+            </summary>
+        </member>
+        <member name="M:WebMarkupMin.NUglify.NUglifyJsMinifier.#ctor(WebMarkupMin.NUglify.NUglifyJsMinificationSettings)">
+            <summary>
+            Constructs an instance of the NUglify JS Minifier
+            </summary>
+            <param name="settings">NUglify JS Minifier settings</param>
+        </member>
+        <member name="M:WebMarkupMin.NUglify.NUglifyJsMinifier.CreateOriginalJsParserInstance(WebMarkupMin.NUglify.NUglifyJsMinificationSettings,System.Boolean)">
+            <summary>
+            Creates a instance of original JS parser
+            </summary>
+            <param name="settings">JS minifier settings</param>
+            <param name="isInlineCode">Flag for whether to create a JS parser for inline code</param>
+            <returns>Instance of original JS parser</returns>
+        </member>
+        <member name="P:WebMarkupMin.NUglify.NUglifyJsMinifier.IsInlineCodeMinificationSupported">
+            <summary>
+            Gets a value indicating the minifier supports inline code minification
+            </summary>
+        </member>
+        <member name="M:WebMarkupMin.NUglify.NUglifyJsMinifier.Minify(System.String,System.Boolean)">
+            <summary>
+            Produces a code minifiction of JS content by using the NUglify JS Minifier
+            </summary>
+            <param name="content">JS content</param>
+            <param name="isInlineCode">Flag whether the content is inline code</param>
+            <returns>Minification result</returns>
+        </member>
+        <member name="M:WebMarkupMin.NUglify.NUglifyJsMinifier.Minify(System.String,System.Boolean,System.Text.Encoding)">
+            <summary>
+            Produces a code minifiction of JS content by using the NUglify JS Minifier
+            </summary>
+            <param name="content">JS content</param>
+            <param name="isInlineCode">Flag whether the content is inline code</param>
+            <param name="encoding">Text encoding</param>
+            <returns>Minification result</returns>
+        </member>
+        <member name="T:WebMarkupMin.NUglify.NUglifyJsMinifierFactory">
+            <summary>
+            NUglify JS Minifier factory
+            </summary>
+        </member>
+        <member name="P:WebMarkupMin.NUglify.NUglifyJsMinifierFactory.MinificationSettings">
+            <summary>
+            Gets or sets a minification settings used to configure the NUglify JS Minifier
+            </summary>
+        </member>
+        <member name="M:WebMarkupMin.NUglify.NUglifyJsMinifierFactory.#ctor">
+            <summary>
+            Constructs an instance of the NUglify JS Minifier factory
+            </summary>
+        </member>
+        <member name="M:WebMarkupMin.NUglify.NUglifyJsMinifierFactory.#ctor(WebMarkupMin.NUglify.NUglifyJsMinificationSettings)">
+            <summary>
+            Constructs an instance of the NUglify JS Minifier factory
+            </summary>
+            <param name="settings">Minification settings used to configure the NUglify JS Minifier</param>
+        </member>
+        <member name="M:WebMarkupMin.NUglify.NUglifyJsMinifierFactory.CreateMinifier">
+            <summary>
+            Creates a instance of the NUglify JS Minifier
+            </summary>
+            <returns>Instance of the NUglify JS Minifier</returns>
+        </member>
+        <member name="T:WebMarkupMin.NUglify.NUglifyMinifierBase">
+            <summary>
+            Base class for the NUglify Minifier
+            </summary>
+        </member>
+        <member name="M:WebMarkupMin.NUglify.NUglifyMinifierBase.MapCommonSettings(NUglify.CommonSettings,WebMarkupMin.NUglify.NUglifyCommonMinificationSettingsBase)">
+            <summary>
+            Maps a common minifier settings
+            </summary>
+            <param name="originalSettings">Original common minifier settings</param>
+            <param name="settings">Common minifier settings</param>
+        </member>
+        <member name="T:WebMarkupMin.NUglify.OutputMode">
+            <summary>
+            Output mode setting
+            </summary>
+        </member>
+        <member name="F:WebMarkupMin.NUglify.OutputMode.SingleLine">
+            <summary>
+            Output the minified code on a single line for maximum minification.
+            LineBreakThreshold may still break the single line into multiple lines
+            at a syntactically correct point after the given line length is reached.
+            Not easily human-readable.
+            </summary>
+        </member>
+        <member name="F:WebMarkupMin.NUglify.OutputMode.MultipleLines">
+            <summary>
+            Output the minified code on multiple lines to increase readability
+            </summary>
+        </member>
+        <member name="T:WebMarkupMin.NUglify.Reporters.NUglifyErrorReporter">
+            <summary>
+            NUglify error reporter
+            </summary>
+        </member>
+        <member name="F:WebMarkupMin.NUglify.Reporters.NUglifyErrorReporter._warningLevel">
+            <summary>
+            Warning level threshold for reporting errors
+            </summary>
+        </member>
+        <member name="F:WebMarkupMin.NUglify.Reporters.NUglifyErrorReporter._errors">
+            <summary>
+            List of the errors
+            </summary>
+        </member>
+        <member name="F:WebMarkupMin.NUglify.Reporters.NUglifyErrorReporter._warnings">
+            <summary>
+            List of the warnings
+            </summary>
+        </member>
+        <member name="P:WebMarkupMin.NUglify.Reporters.NUglifyErrorReporter.Errors">
+            <summary>
+            Gets a list of the errors
+            </summary>
+        </member>
+        <member name="P:WebMarkupMin.NUglify.Reporters.NUglifyErrorReporter.Warnings">
+            <summary>
+            Gets a list of the warnings
+            </summary>
+        </member>
+        <member name="M:WebMarkupMin.NUglify.Reporters.NUglifyErrorReporter.#ctor(System.Int32)">
+            <summary>
+            Constructs an instance of the NUglify error reporter
+            </summary>
+            <param name="warningLevel">Warning level threshold for reporting errors</param>
+        </member>
+        <member name="M:WebMarkupMin.NUglify.Reporters.NUglifyErrorReporter.ParseErrorHandler(System.Object,NUglify.ContextErrorEventArgs)">
+            <summary>
+            Parse error handler
+            </summary>
+            <param name="source">The source of the event</param>
+            <param name="args">A <see cref="T:NUglify.ContextErrorEventArgs"/> that contains the event data</param>
+        </member>
+        <member name="M:WebMarkupMin.NUglify.Reporters.NUglifyErrorReporter.Clear">
+            <summary>
+            Clears a error and warning lists
+            </summary>
+        </member>
+    </members>
+</doc>
